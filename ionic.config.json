@@ -1,0 +1,7 @@
+{
+  "name": "nimekapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
