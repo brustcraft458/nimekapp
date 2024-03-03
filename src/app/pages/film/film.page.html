@@ -17,7 +17,7 @@
         <ion-label>Completed Anime</ion-label>
       </ion-item-divider>
       <ion-col size="6" size-md="4" *ngFor="let item of filmList">
-        <ion-card class="custom-card" button routerLink="/home">
+        <ion-card class="custom-card" button routerLink="{{trimEndpoint(item.endpoint)}}">
           <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
           <ion-card-header>
             <ion-card-title>{{trimTitle(item.title, 12)}}</ion-card-title>

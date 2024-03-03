@@ -13,13 +13,24 @@ export class FilmPage implements OnInit {
 
   ngOnInit() {
     this.filmService.getFilms().subscribe((res) => {
-      // console.log(tes.title)
       this.filmList = res.completed
     })
+
+    /*this.filmService.getDownloadUrl(tesUrl1).subscribe((res) => {
+      console.log("ApiRes", res)
+      const desuContainer: any = document.querySelector("#desuContainer");
+      desuContainer.innerHTML = res.toString()
+    })*/
   }
 
   trimTitle(title: string, maxLength: number): string {
     return title.length > maxLength ? title.substring(0, maxLength) + '...' : title;
+  }
+
+  trimEndpoint(urlpoint: string): string {
+    let strim = urlpoint.split("/")
+    const idx = strim.length - 1
+    return strim[idx]
   }
 
 
