@@ -1,2 +1,2 @@
 # nimekapp
-Anime Downloader App Ionic
+Simple Anime Downloader App Ionic
