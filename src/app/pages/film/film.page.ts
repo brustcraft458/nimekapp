@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmDetail, FilmService } from 'src/app/services/film.service';
+import { ApiFilmData, FilmService } from 'src/app/services/film.service';
 
 @Component({
   selector: 'app-film',
@@ -7,7 +7,7 @@ import { FilmDetail, FilmService } from 'src/app/services/film.service';
   styleUrls: ['./film.page.scss'],
 })
 export class FilmPage implements OnInit {
-  filmList: FilmDetail[] = []
+  filmList: ApiFilmData[] = []
 
   constructor(private filmService: FilmService) { }
 
@@ -29,7 +29,7 @@ export class FilmPage implements OnInit {
 
   trimEndpoint(urlpoint: string): string {
     let strim = urlpoint.split("/")
-    const idx = strim.length - 1
+    let idx = (strim.length - 1) - 1
     return strim[idx]
   }
 

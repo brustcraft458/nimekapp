@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface ApiFilm {
   status: boolean
   message: string
-  completed: FilmDetail[]
+  completed: ApiFilmData[]
   currentPage: string
 }
 
@@ -14,13 +14,34 @@ export interface ApiDownloadUrl {
   url: string
 }
 
-export interface FilmDetail {
+export interface ApiFilmData {
   title: string
   thumb: string
   total_episode: string
   updated_on: string
   score: string
   endpoint: string
+}
+
+export interface ApiDetail {
+  status: boolean
+  message: string
+  anime_detail: ApiDetailFilm
+  episode_list: ApiDetailEpisode[]
+  endpoint: string
+}
+
+export interface ApiDetailFilm {
+  thumb: string
+  sinopsis: string[]
+  detail: string[]
+  title: string
+}
+
+export interface ApiDetailEpisode {
+  episode_title: string
+  episode_endpoint: string
+  episode_date: string
 }
 
 
@@ -34,6 +55,10 @@ export class FilmService {
 
   getFilms(): Observable<ApiFilm> {
     return this.http.get<ApiFilm>(`${this.apiUrl}/completed/1`)
+  }
+
+  getDetail(endpoint: string): Observable<ApiDetail> {
+    return this.http.get<ApiDetail>(`${this.apiUrl}/detail/${endpoint}`)
   }
 
   getDownloadUrl(urlpoint: string): Observable<ApiDownloadUrl[]> {

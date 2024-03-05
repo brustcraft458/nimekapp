@@ -1,13 +1,39 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" animated="false">
   <ion-toolbar>
-    <ion-title>filmDetail</ion-title>
+    <ion-title>Anime Downloader</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">filmDetail</ion-title>
+      <ion-title size="large">Anime Downloader</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-item-divider>
+    <ion-label>Anime Detail</ion-label>
+  </ion-item-divider>
+
+  <ion-row>
+    <ion-card class="custom-bigcard">
+      <img alt="Film Poster" src="{{filmData.thumb || 'assets/img/card-media.png'}}" />
+      <ion-card-header>
+        <ion-card-title>{{filmData.title}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-chip>
+          <ion-icon name="star"></ion-icon>
+          <ion-label>9.0</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>{{episodeList.length || '-'}} Episode</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Ongoing</ion-label>
+        </ion-chip>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
 </ion-content>
