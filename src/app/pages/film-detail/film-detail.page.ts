@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FilmService, ApiDetailFilm, ApiDetailEpisode } from 'src/app/services/film.service';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-film-detail',
@@ -25,6 +26,13 @@ export class FilmDetailPage implements OnInit {
       this.filmData = res.anime_detail
       this.episodeList = res.episode_list
     })
+  }
+
+  parseDownload(urlpoint: string) {
+    this.filmService.getDownloadUrl(urlpoint).subscribe(data => {
+      let url: any = data[0].url
+      Browser.open({ url: url });
+    });
   }
 
 }

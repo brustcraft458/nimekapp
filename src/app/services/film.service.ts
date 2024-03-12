@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FilmParserService } from './film-parser.service';
 
 export interface ApiFilm {
   status: boolean
@@ -34,7 +35,7 @@ export interface ApiDetail {
 export interface ApiDetailFilm {
   thumb: string
   sinopsis: string[]
-  detail: string[]
+  detail: any
   title: string
 }
 
@@ -51,38 +52,28 @@ export interface ApiDetailEpisode {
 export class FilmService {
   private apiUrl = 'https://api-nimekapp.vercel.app/api/v1'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private parser: FilmParserService) { }
 
   getFilms(): Observable<ApiFilm> {
     return this.http.get<ApiFilm>(`${this.apiUrl}/completed/1`)
   }
 
   getDetail(endpoint: string): Observable<ApiDetail> {
-    return this.http.get<ApiDetail>(`${this.apiUrl}/detail/${endpoint}`)
+    return new Observable((observer) => {
+      this.http.get<ApiDetail>(`${this.apiUrl}/detail/${endpoint}`).subscribe(res => {
+        let result = res
+        result.anime_detail.detail = this.parser.filmDetailed(res.anime_detail.detail)
+
+        observer.next(result)
+        observer.complete()
+      })
+    })
   }
 
   getDownloadUrl(urlpoint: string): Observable<ApiDownloadUrl[]> {
-    const htmlApiParse = (text: string) => {
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(text, 'text/html')
-      let result: ApiDownloadUrl[] = []
-      let downloadElm = htmlDoc.querySelector(".download")?.querySelectorAll("li")
-      downloadElm?.forEach(elm => {
-        let data = {
-          'title': elm.querySelector("strong")?.innerText || '',
-          'url': elm.querySelector("a")?.href || ''
-        }
-        if (data.title != '' && data.url != '') {
-          result.push(data)
-        }
-      })
-
-      return result
-    }
-
     return new Observable((observer) => {
       this.http.get(urlpoint, {responseType: 'text'}).subscribe(res => {
-        let result = htmlApiParse(res)
+        let result = this.parser.downloadUrl(res)
         observer.next(result)
         observer.complete()
       })

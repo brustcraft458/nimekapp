@@ -16,23 +16,44 @@
   </ion-item-divider>
 
   <ion-row>
-    <ion-card class="custom-bigcard">
-      <img alt="Film Poster" src="{{filmData.thumb || 'assets/img/card-media.png'}}" />
+    <ion-card class="title-section">
+      <div class="image">
+        <img alt="Film Poster" src="{{filmData.thumb || 'assets/img/card-media.png'}}" />
+      </div>
       <ion-card-header>
-        <ion-card-title>{{filmData.title}}</ion-card-title>
+        <ion-card-title>{{filmData.detail.judul}}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         <ion-chip>
           <ion-icon name="star"></ion-icon>
-          <ion-label>9.0</ion-label>
+          <ion-label>{{filmData.detail.skor}}</ion-label>
         </ion-chip>
         <ion-chip>
-          <ion-label>{{episodeList.length || '-'}} Episode</ion-label>
+          <ion-label>{{filmData.detail.total_episode}} Episode</ion-label>
         </ion-chip>
         <ion-chip>
-          <ion-label>Ongoing</ion-label>
+          <ion-label>{{filmData.detail.status}}</ion-label>
         </ion-chip>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="episode-section">
+      <ion-card-header>
+        <ion-card-title>Episode List</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list class="episode-list">
+          <ion-item button *ngFor="let item of episodeList" (click)="parseDownload(item.episode_endpoint)">
+            <div slot="start">
+              <ion-icon name="film"></ion-icon>
+            </div>
+            <ion-label>{{item.episode_title}}</ion-label>
+            <div slot="end">
+              <ion-icon name="cloud-download-outline"></ion-icon>
+            </div>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
     </ion-card>
   </ion-row>

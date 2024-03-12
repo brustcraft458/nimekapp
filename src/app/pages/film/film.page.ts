@@ -15,12 +15,6 @@ export class FilmPage implements OnInit {
     this.filmService.getFilms().subscribe((res) => {
       this.filmList = res.completed
     })
-
-    /*this.filmService.getDownloadUrl(tesUrl1).subscribe((res) => {
-      console.log("ApiRes", res)
-      const desuContainer: any = document.querySelector("#desuContainer");
-      desuContainer.innerHTML = res.toString()
-    })*/
   }
 
   trimTitle(title: string, maxLength: number): string {

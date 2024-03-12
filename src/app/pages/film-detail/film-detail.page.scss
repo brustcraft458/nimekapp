@@ -1,20 +1,37 @@
-.custom-bigcard {
+.title-section {
   width: 100%;
 }
 
-.custom-bigcard img {
+.title-section img {
   width: 100%;
-  height: 65vh;
+  height: 251px;
   object-fit: cover;
 }
 
-.custom-bigcard ion-card-header {
+.title-section ion-card-header {
   justify-content: center;
   align-items: flex-start;
-  padding: 5px 15px;
+  padding: 5px 16px;
 }
 
-.custom-bigcard ion-card-title {
+.title-section ion-card-title {
   font-size: 18px;
   white-space: nowrap;
+}
+
+.episode-section {
+  width: 100%;
+}
+
+.episode-list [slot='start'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scale: 3;
+  color: #B9B9B9;
+}
+
+.episode-list [slot='end'] {
+  scale: 2;
+  color: #B9B9B9;
 }
